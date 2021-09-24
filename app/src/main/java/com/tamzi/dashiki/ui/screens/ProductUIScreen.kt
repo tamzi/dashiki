@@ -52,7 +52,3 @@ fun ProductsScreen() {
         }
     }
 }
-
-
-
-
