@@ -1,2 +1,4 @@
 # dashiki
-Library of common composables i use. WIP
+common UI Screens done in compose
+
+WIP
