@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -116,6 +117,7 @@ fun DProductCard(product: Product) {
 data class Product(val price: String, val color: Int, val image: Int)
 
 
+/*eXPANDABLE cARD*/
 @ExperimentalMaterialApi
 @Composable
 fun ExpandableCard(
@@ -130,7 +132,7 @@ fun ExpandableCard(
     padding: Dp = 12.dp
 ) {
     var expandedState by remember { mutableStateOf(false) }
-    val rotationState by animateFloatAsState(
+    val rotationState: Float by animateFloatAsState(
         targetValue = if (expandedState) 180f else 0f
     )
 
