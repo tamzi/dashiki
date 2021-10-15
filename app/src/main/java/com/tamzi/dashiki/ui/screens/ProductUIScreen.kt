@@ -158,4 +158,3 @@ fun ProductCard(product: Product) {
 }
 
 data class Product(val price: String, val color: Int, val image: Int)
-
