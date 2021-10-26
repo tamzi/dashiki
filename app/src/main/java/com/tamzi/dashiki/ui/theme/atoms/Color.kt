@@ -2,12 +2,17 @@ package com.tamzi.dashiki.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+/*Coffee*/
+val kahawaBrown = Color(0xFF973C0E)
+val kahawaGreen = Color(0xFF006643)
+val kahawaSmoke = Color(0xFFB37F5D)
+val kahawaRed = Color(0xFFFF5000)
 
 
 val Purple200 = Color(0xFF55B03E)
 val Purple500 = Color(0xFF0d9668)
 val Purple700 = Color(0xFF0d9668)
-val Teal200 = Color(0xFFffbd4a)
+val paragraphTextColor = Color(0xFFffbd4a)
 val bgColor = Color(0xFF91b5a3)
 
 val white = Color(0xFFFFFFFF)
