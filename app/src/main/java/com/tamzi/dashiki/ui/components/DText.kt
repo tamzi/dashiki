@@ -8,7 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.tamzi.dashiki.ui.theme.black
-
+import com.tamzi.dashiki.ui.theme.paragraphTextColor
 
 
 @Composable
@@ -16,7 +16,7 @@ fun PageTitle(pageTitle: String) {
     Text(
         text = "$pageTitle",
         style = TextStyle(
-            color = black,
+            color = paragraphTextColor,
             fontSize = 33.sp,
             fontWeight = FontWeight.W300,
         ),

@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.tamzi.dashiki.ui.theme.Shapes
 import com.tamzi.dashiki.ui.theme.black
+import com.tamzi.dashiki.ui.theme.limeGreenish
 import com.tamzi.dashiki.ui.theme.white
 
 @Composable
@@ -77,8 +78,10 @@ fun DProductCard(product: Product) {
             contentAlignment = Alignment.Center
         ) {
             Icon(
+
                 Icons.Default.Add,
                 contentDescription = "Add Product Icon"
+
             )
         }
 
@@ -89,7 +92,7 @@ fun DProductCard(product: Product) {
                     centerVerticallyTo(parent)
                     start.linkTo(parent.start, margin = 21.dp)
                 }
-                .rotate(-21f),
+                .rotate(-31f),
             painter = painterResource(id = product.image),
             contentDescription = ""
         )
@@ -97,12 +100,12 @@ fun DProductCard(product: Product) {
             modifier = Modifier.constrainAs(itemPrice) {
                 end.linkTo(
                     parent.end,
-                    margin = 30.dp
+                    margin = 40.dp
                 )
                 bottom.linkTo(parent.bottom, margin = 20.dp)
             }, text = product.price,
             style = TextStyle(
-                color = black,
+                color = limeGreenish,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
