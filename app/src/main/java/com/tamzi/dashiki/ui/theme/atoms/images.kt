@@ -4,5 +4,3 @@ import android.media.Image
 import com.tamzi.dashiki.R
 
 /*all images of the */
-
-
