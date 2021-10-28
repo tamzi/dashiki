@@ -7,20 +7,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.tamzi.dashiki.ui.theme.black
-import com.tamzi.dashiki.ui.theme.paragraphTextColor
+import com.tamzi.dashiki.ui.theme.*
 
 
 @Composable
 fun PageTitle(pageTitle: String) {
     Text(
         text = "$pageTitle",
-        style = TextStyle(
-            color = paragraphTextColor,
-            fontSize = 33.sp,
-            fontWeight = FontWeight.W300,
-        ),
-        modifier = Modifier.fillMaxWidth()
+        color = black,
+        fontSize = 23.sp,
+        fontWeight = FontWeight.W900,
+        fontFamily = SantanaFont,
     )
 }
 
@@ -32,6 +29,21 @@ fun DSubtitle(dSubtitle: String) {
             color = black,
             fontSize = 23.sp,
             fontWeight = FontWeight.W700,
+            fontFamily = GraphikFont,
+        ),
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+fun DParagraph(dParagraph: String) {
+    Text(
+        text = "$dParagraph",
+        style = TextStyle(
+            color = black,
+            fontSize = 23.sp,
+            fontWeight = FontWeight.W700,
+            fontFamily = GraphikFont,
         ),
         modifier = Modifier.fillMaxWidth()
     )
