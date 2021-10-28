@@ -14,4 +14,3 @@ val GraphikFont = FontFamily(
 val SantanaFont = FontFamily(
     Font(R.font.santana_black, FontWeight.Normal),
 )
-
