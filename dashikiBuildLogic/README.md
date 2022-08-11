@@ -21,11 +21,10 @@ modules can use to configure themselves.
 which is most useful for configuring Android components (libraries vs applications) with shared
 code.
 
-These plugins are *additive* and *composable*, and try to only accomplish a single responsibility.
+These plugins are _additive_ and _composable_, and try to only accomplish a single responsibility.
 Modules can then pick and choose the configurations they need.
 If there is one-off logic for a module without shared code, it's preferable to define that directly
 in the module's `build.gradle`, as opposed to creating a convention plugin with module-specific
 setup.
 
 Current list of convention plugins:
-
