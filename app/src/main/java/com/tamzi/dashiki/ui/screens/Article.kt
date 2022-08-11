@@ -53,7 +53,7 @@ fun ArticleScreen() {
         Column(
             Modifier
                 .fillMaxSize()
-                .background(color = gray)
+                .background(color = kahawaBrown)
                 .padding(horizontal = 13.dp, vertical = 5.dp)
         )
         {

@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.tamzi.dashiki"
-        minSdk 30
-        targetSdk 31
+        minSdk 22
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -31,14 +31,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.21'
+        kotlinCompilerExtensionVersion = "1.3.0-rc02"
     }
     packagingOptions {
         resources {
@@ -49,29 +47,40 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation "androidx.compose.ui:ui:1.0.4"
-    implementation "androidx.compose.material:material:1.0.4"
-    implementation "androidx.compose.ui:ui-tooling-preview:1.0.4"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0-rc01'
-    implementation 'androidx.activity:activity-compose:1.4.0-rc01'
-    implementation 'androidx.ui:ui-layout:0.1.0-dev02'
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.androidx.window.manager)
+    implementation(libs.androidx.activity.compose)
+    api(libs.androidx.compose.foundation)
+    debugApi(libs.androidx.compose.ui.tooling)
+    api(libs.androidx.compose.ui.tooling.preview)
+    api(libs.androidx.compose.material3)
+    api(libs.androidx.compose.ui.util)
+    api(libs.androidx.compose.runtime)
 
     //Coil
-    implementation 'com.google.accompanist:accompanist-coil:0.15.0'
-    implementation "io.coil-kt:coil-compose:1.4.0"
+    implementation(libs.androidx.appcompat)
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.svg)
 
     //lottie
-    implementation "com.airbnb.android:lottie:4.2.0"
+    implementation 'com.airbnb.android:lottie:5.2.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.4'
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.0.4'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.2.0'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.2.0'
+
+    // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
+    configurations.configureEach {
+        resolutionStrategy {
+            force(libs.junit4)
+            // Temporary workaround for https://issuetracker.google.com/174733673
+            force("org.objenesis:objenesis:2.6")
+        }
+    }
 
 
 }
