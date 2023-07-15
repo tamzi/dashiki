@@ -1,11 +1,7 @@
 package com.tamzi.dashiki.ui.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -13,23 +9,11 @@ import androidx.compose.ui.unit.dp
 import com.tamzi.dashiki.R
 import com.tamzi.dashiki.ui.components.*
 import com.tamzi.dashiki.ui.components.Product
-import com.tamzi.dashiki.ui.theme.*
-import com.tamzi.dashiki.ui.theme.utils.breathingSpace
-import com.tamzi.dashiki.ui.theme.utils.separatorSpace
+import com.tamzi.dds.DashikiTheme
+import com.tamzi.dds.atoms.color.gray
+import com.tamzi.dds.utils.breathingSpace13
+import com.tamzi.dds.utils.separatorSpace10
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            DashikiTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = darkGray) {
-                    ProductsScreen()
-                }
-            }
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
@@ -42,7 +26,6 @@ fun ProductsScreen() {
 
     )
 
-
     DashikiTheme {
         Column(
             Modifier
@@ -52,15 +35,15 @@ fun ProductsScreen() {
         )
         {
             DIconBtnBack()
-            breathingSpace()
+            breathingSpace13()
             PageTitle("Products")
-            separatorSpace()
+            separatorSpace10()
             DSubtitle("Currently available in our outlets")
-            breathingSpace()
+            breathingSpace13()
             for (p in productList){
                 DProductCard(product = p)
-
-            }            }
+            }
+        }
     }
 }
 
