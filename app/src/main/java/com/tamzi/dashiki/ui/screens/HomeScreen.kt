@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tamzi.dds.DashikiTheme
-import com.tamzi.dds.atoms.color.white
+import com.tamzi.dds.atoms.color.dashikWhite
 import com.tamzi.dds.utils.breathingSpace13
 import com.tamzi.dds.utils.breathingSpace26
 import com.tamzi.dds.utils.separatorSpace5
@@ -21,7 +21,7 @@ fun HomeScreenActivity() {
         Column(
             Modifier
                 .fillMaxSize()
-                .background(color = white)
+                .background(color = dashikWhite)
                 .padding(horizontal = 13.dp, vertical = 5.dp)
         ) {
             breathingSpace26()

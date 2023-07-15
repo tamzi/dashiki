@@ -18,15 +18,15 @@ import com.tamzi.dds.atoms.color.*
 import com.tamzi.dds.atoms.type.DashikiTypography
 
 val DarkColorPalette = darkColorScheme(
-    primary = amber,
-    secondary = blue,
-    background = black,
+    primary = dashikiAmber,
+    secondary = dashikiBlue,
+    background = dashikiBlack,
 )
 
 val LightColorPalette = lightColorScheme(
-    primary = indigo,
-    secondary = warmishGreen,
-    background = white,
+    primary = dashikiPurple,
+    secondary = dashikiLimeGreenish,
+    background = dashikiWhite,
 
     /* Other default colors to override
     background = Color.White,
