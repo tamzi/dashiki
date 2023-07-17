@@ -24,6 +24,3 @@ fun separatorSpace5(){
 fun separatorSpace10(){
     Spacer(modifier = Modifier.height(10.dp))
 }
-fun padding(){
-    padding()
-}
