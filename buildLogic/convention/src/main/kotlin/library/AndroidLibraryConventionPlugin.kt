@@ -5,6 +5,7 @@ import com.android.build.gradle.LibraryExtension
 import util.configureKotlinAndroid
 import util.disableUnnecessaryAndroidTests
 import util.libs
+import util.BuildLogicConstants
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -43,12 +44,12 @@ import org.gradle.kotlin.dsl.kotlin
  * }
  * ```
  *
- * Next, the `extensions.configure<LibraryExtension>` method is used to configure the `LibraryExtension` instance. This extension provides access to Android-specific configuration options. The `configureKotlinAndroid` function is called to apply Kotlin-specific configurations to the Android project. The `targetSdk` version is set to 34, and the `testInstrumentationRunner` is set to `androidx.test.runner.AndroidJUnitRunner`. Animations are disabled in test options to speed up tests. Additionally, a resource prefix is derived from the module name to ensure consistent resource naming.
+ * Next, the `extensions.configure<LibraryExtension>` method is used to configure the `LibraryExtension` instance. This extension provides access to Android-specific configuration options. The `configureKotlinAndroid` function is called to apply Kotlin-specific configurations to the Android project. The `targetSdk` version is set to `BuildLogicConstants.TARGET_SDK`, and the `testInstrumentationRunner` is set to `androidx.test.runner.AndroidJUnitRunner`. Animations are disabled in test options to speed up tests. Additionally, a resource prefix is derived from the module name to ensure consistent resource naming.
  *
  * ```
  * extensions.configure<LibraryExtension> {
  *     configureKotlinAndroid(this)
- *     defaultConfig.targetSdk = 34
+ *     defaultConfig.targetSdk = BuildLogicConstants.TARGET_SDK
  *     defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
  *     testOptions.animationsDisabled = true
  *     resourcePrefix = path.split("""\W""".toRegex()).drop(1).distinct().joinToString(separator = "_").lowercase() + "_"
@@ -86,7 +87,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 35
+                defaultConfig.targetSdk = BuildLogicConstants.TARGET_SDK
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 testOptions.animationsDisabled = true
                 // The resource prefix is derived from the module name,
