@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.tamzi.ddscatalog"
-    compileSdk = 33
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.tamzi.ddscatalog"
-        minSdk = 26
-        targetSdk = 33
+        minSdk = 33
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
