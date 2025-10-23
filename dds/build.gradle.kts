@@ -19,12 +19,6 @@ android {
             )
         }
     }
-
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-        }
-    }
 }
 
 dependencies {
@@ -41,10 +35,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
 
     implementation(libs.androidx.compose.animation)
-
-    testImplementation(libs.junit5)
-    testRuntimeOnly(libs.junit5.engine)
-    testImplementation(libs.junit5.params)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

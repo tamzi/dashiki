@@ -2,6 +2,7 @@ package application
 
 import com.android.build.api.dsl.ApplicationExtension
 import util.configureKotlinAndroid
+import util.configureJUnit5
 import util.BuildLogicConstants
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -81,6 +82,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
+                configureJUnit5(this) // Add JUnit 5 configuration
                 defaultConfig.targetSdk = BuildLogicConstants.TARGET_SDK
                 defaultConfig.minSdk = BuildLogicConstants.MIN_SDK
                 @Suppress("UnstableApiUsage")

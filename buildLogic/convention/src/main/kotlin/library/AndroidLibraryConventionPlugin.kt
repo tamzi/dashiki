@@ -3,6 +3,7 @@ package library
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
 import util.configureKotlinAndroid
+import util.configureJUnit5
 import util.disableUnnecessaryAndroidTests
 import util.libs
 import util.BuildLogicConstants
@@ -87,6 +88,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
+                configureJUnit5(this)
                 defaultConfig.targetSdk = BuildLogicConstants.TARGET_SDK
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 testOptions.animationsDisabled = true

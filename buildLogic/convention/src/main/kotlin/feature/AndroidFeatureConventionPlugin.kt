@@ -8,52 +8,38 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 /**
+ * Convention plugin for feature modules in the Dashiki project.
  *
+ * Feature modules are UI-focused modules that implement user-facing functionality.
+ * They typically depend on core modules for shared logic and data access.
  *
- * The AndroidFeatureConventionPlugin class implements the Plugin<Project> interface in Gradle,
- * allowing it to be applied to a Gradle project. This plugin is designed to configure
- * Android feature modules with specific settings and dependencies.
+ * This plugin applies:
+ * - Android library configuration
+ * - Hilt for dependency injection
+ * - Common feature module dependencies
  *
- * The apply method is overridden to define the plugin's behavior when it is applied to a project.
- * Inside this method, the with(target) block is used to operate on the Project instance passed as
- * the target parameter.
- *
- *  `class AndroidFeatureConventionPlugin : Plugin<Project> {
- *     override fun apply(target: Project) {
- *         with(target) {
- *             // Configuration code
- *         }
- *     }
- *  }`
- *
- * Within the with(target) block, the pluginManager is used to apply two custom plugins:
- * dashiki.android.library and dashiki.hilt.
- * These plugins are essential for setting up the Android library and Hilt dependency injection framework
- *
- *  `pluginManager.apply {
- *     apply("dashiki.android.library")
- *     apply("dashiki.hilt")
- *  }`
- *
- *
- *
- * */
-
+ * To use this plugin, feature modules should be structured under a :feature directory
+ * and depend on appropriate :core modules as needed.
+ */
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply {
                 apply("dashiki.android.library")
+                apply("dashiki.android.library.compose")
                 apply("dashiki.hilt")
             }
+
             extensions.configure<LibraryExtension> {
                 testOptions.animationsDisabled = true
             }
 
             dependencies {
-                add("implementation", project(":core:ui"))
-                add("implementation", project(":gruid"))
+                // TODO: Add core module dependencies when core modules are created
+                // add("implementation", project(":core:ui"))
+                // add("implementation", project(":core:domain"))
 
+                // Common feature dependencies
                 add("implementation", libs.findLibrary("androidx.hilt.navigation.compose").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())

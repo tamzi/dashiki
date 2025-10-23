@@ -31,12 +31,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-        }
-    }
 }
 
 dependencies {
@@ -45,10 +39,6 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     implementation(project(":dds"))
-
-    testImplementation(libs.junit5)
-    testRuntimeOnly(libs.junit5.engine)
-    testImplementation(libs.junit5.params)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
