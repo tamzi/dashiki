@@ -39,13 +39,13 @@ fun Project.configurePrinting(commonExtension: CommonExtension<*, *, *, *, *, *>
 
         // Configure build types with logging fields
         buildTypes {
-            debug {
+            getByName("debug") {
                 // Add build config fields for debug builds
                 buildConfigField("boolean", "DEBUG_MODE", "true")
                 buildConfigField("String", "LOG_LEVEL", "\"DEBUG\"")
             }
 
-            release {
+            getByName("release") {
                 // Add build config fields for release builds
                 buildConfigField("boolean", "DEBUG_MODE", "false")
                 buildConfigField("String", "LOG_LEVEL", "\"ERROR\"")
@@ -75,11 +75,11 @@ fun Project.configureLibraryPrinting(commonExtension: CommonExtension<*, *, *, *
         }
 
         buildTypes {
-            debug {
+            getByName("debug") {
                 buildConfigField("boolean", "DEBUG_MODE", "true")
             }
 
-            release {
+            getByName("release") {
                 buildConfigField("boolean", "DEBUG_MODE", "false")
             }
         }
