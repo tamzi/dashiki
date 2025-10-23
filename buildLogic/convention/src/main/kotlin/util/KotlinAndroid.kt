@@ -10,10 +10,8 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.provideDelegate
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinTopLevelExtension
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
  * This file defines functions to configure Kotlin settings for both Android and JVM
@@ -64,22 +62,30 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinTopLevelExtension
  */
 internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, *, *, *, *, *>) {
     commonExtension.apply {
-        compileSdk = 35
+        compileSdk = BuildLogicConstants.COMPILE_SDK
 
         defaultConfig {
-            minSdk = 28
+            minSdk = BuildLogicConstants.MIN_SDK
         }
 
         compileOptions {
             // Up to Java 11 APIs are available through desugaring
             // https://developer.android.com/studio/write/java11-minimal-support-table
-            sourceCompatibility = JavaVersion.VERSION_21
-            targetCompatibility = JavaVersion.VERSION_21
+            sourceCompatibility = JavaVersion.toVersion(BuildLogicConstants.JAVA_VERSION)
+            targetCompatibility = JavaVersion.toVersion(BuildLogicConstants.JAVA_VERSION)
             isCoreLibraryDesugaringEnabled = true
         }
     }
 
-    configureKotlin<KotlinAndroidProjectExtension>()
+    // Configure Kotlin options via tasks
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(BuildLogicConstants.KOTLIN_JVM_TARGET))
+            val warningsAsErrors: String? by project
+            allWarningsAsErrors.set(warningsAsErrors.toBoolean())
+            freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
+    }
 
     dependencies {
         add("coreLibraryDesugaring",
@@ -120,71 +126,18 @@ internal fun Project.configureKotlinJvm() {
     extensions.configure<JavaPluginExtension> {
         // Up to Java 11 APIs are available through desugaring
         // https://developer.android.com/studio/write/java11-minimal-support-table
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.toVersion(BuildLogicConstants.JAVA_VERSION)
+        targetCompatibility = JavaVersion.toVersion(BuildLogicConstants.JAVA_VERSION)
     }
 
-    configureKotlin<KotlinJvmProjectExtension>()
-}
-
-/**
- * Configure base Kotlin options
- *
- * This function configures base Kotlin options for a project within a Gradle build script.
- * This setup ensures that the project adheres to specific standards and uses the appropriate versions of Kotlin.
- *
- * This setup ensures that the project is configured with the necessary Kotlin compiler options,
- * including treating all warnings as errors and enabling experimental coroutines APIs.
- *
- * The configureKotlin function is a private inline extension function for the Project class in Gradle.
- * It is designed to configure Kotlin-specific options for both Android and JVM projects.
- * The function uses a reified type parameter T that extends KotlinTopLevelExtension,
- * allowing it to be used with different Kotlin project extensions.
- * The function starts by configuring the Kotlin extension of type T using the configure method.
- * It retrieves the warningsAsErrors property from the project,
- * which can be overridden in the gradle.properties file:
- *
- *  `val warningsAsErrors: String? by project`
- *
- *  Next, it uses a when expression to handle different types of Kotlin project extensions.
- *  If the extension is of type KotlinAndroidProjectExtension or KotlinJvmProjectExtension,
- *  it accesses the compilerOptions property.
- *  If the extension type is unsupported, it throws a TO-DO exception:
- *
- *      `when (this) {
- *     is KotlinAndroidProjectExtension -> compilerOptions
- *     is KotlinJvmProjectExtension -> compilerOptions
- *     else -> TODO()
- *      }`
- *
- *      TODO here will always throw a `NotImplementedError` stating that operation is not implemented.
- *  Params: reason - a string explaining why the implementation is missing.
- *
- *  Within the apply block, the function sets the jvmTarget to Java 11 and configures
- *  the allWarningsAsErrors property based on the warningsAsErrors value.
- *  It also adds a free compiler argument to enable experimental coroutines APIs, including Flow:
- *
- *  `jvmTarget = JvmTarget.JVM_11
- *  allWarningsAsErrors = warningsAsErrors.toBoolean()
- *  freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")`
- *
- *
- */
-private inline fun <reified T : KotlinTopLevelExtension> Project.configureKotlin() =
-    configure<T> {
-        // Treat all Kotlin warnings as errors (disabled by default)
-        // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
-        val warningsAsErrors: String? by project
-        when (this) {
-            is KotlinAndroidProjectExtension -> compilerOptions
-            is KotlinJvmProjectExtension -> compilerOptions
-            else -> TODO("Unsupported project extension $this ${T::class}")
-        }.apply {
-            jvmTarget = JvmTarget.JVM_21
-            allWarningsAsErrors = warningsAsErrors.toBoolean()
-            freeCompilerArgs.add(
-                // Enable experimental coroutines APIs, including Flow
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            )
+    // Configure Kotlin options via tasks
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(BuildLogicConstants.KOTLIN_JVM_TARGET))
+            val warningsAsErrors: String? by project
+            allWarningsAsErrors.set(warningsAsErrors.toBoolean())
+            freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
         }
     }
+}
+
