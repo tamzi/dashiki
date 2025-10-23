@@ -27,12 +27,12 @@ import org.gradle.kotlin.dsl.dependencies
  *  }`
  *
  * Within the with(target) block, the pluginManager is used to apply two custom plugins:
- * mboga.android.library and mboga.hilt.
+ * dashiki.android.library and dashiki.hilt.
  * These plugins are essential for setting up the Android library and Hilt dependency injection framework
  *
  *  `pluginManager.apply {
- *     apply("mboga.android.library")
- *     apply("mboga.hilt")
+ *     apply("dashiki.android.library")
+ *     apply("dashiki.hilt")
  *  }`
  *
  *
@@ -43,8 +43,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply {
-                apply("mboga.android.library")
-                apply("mboga.hilt")
+                apply("dashiki.android.library")
+                apply("dashiki.hilt")
             }
             extensions.configure<LibraryExtension> {
                 testOptions.animationsDisabled = true

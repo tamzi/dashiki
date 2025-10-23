@@ -33,13 +33,13 @@ import org.gradle.kotlin.dsl.kotlin
  * }
  * ```
  *
- * Within the `with(target)` block, the `pluginManager` is used to apply several plugins to the project. These plugins include `com.android.library` for Android library support, `org.jetbrains.kotlin.android` for Kotlin support, and `mboga.android.lint` for linting.
+ * Within the `with(target)` block, the `pluginManager` is used to apply several plugins to the project. These plugins include `com.android.library` for Android library support, `org.jetbrains.kotlin.android` for Kotlin support, and `dashiki.android.lint` for linting.
  *
  * ```
  * with(pluginManager) {
  *     apply("com.android.library")
  *     apply("org.jetbrains.kotlin.android")
- *     apply("mboga.android.lint")
+ *     apply("dashiki.android.lint")
  * }
  * ```
  *
@@ -81,7 +81,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
-                apply("mboga.android.lint")
+                apply("dashiki.android.lint")
             }
 
             extensions.configure<LibraryExtension> {
