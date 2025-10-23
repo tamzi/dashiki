@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.tamzi.dds"
-    compileSdk = 33
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 26
@@ -23,6 +23,11 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -31,43 +36,51 @@ android {
         jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.8"
+        kotlinCompilerExtensionVersion = "1.4.7"
+    }
+
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
     }
 }
 
 dependencies {
-
-    val composeBom = platform("androidx.compose:compose-bom:2023.06.01")
+    // Compose BOM
+    val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
-
-    implementation("androidx.core:core-ktx")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx")
-    implementation("androidx.activity:activity-compose:")
-    implementation("androidx.compose.animation:animation")
-    implementation("androidx.compose.foundation:foundation")
-    implementation("androidx.compose.material:material")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.runtime:runtime")
-
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit")
-    androidTestImplementation("androidx.test.espresso:espresso-core")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-
-    //Koin
-    implementation("io.insert-koin:koin-androidx-compose:3.4.5")
-
-    //Test
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     androidTestImplementation(composeBom)
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    //Koin for Tests
-    testImplementation("io.insert-koin:koin-test-junit4:3.4.5")
+    // Core Android libraries
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // Compose UI
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+
+    // Compose Animation
+    implementation("androidx.compose.animation:animation")
+
+    // JUnit 5 for unit tests
+    testImplementation(libs.junit5)
+    testRuntimeOnly(libs.junit5.engine)
+    testImplementation(libs.junit5.params)
+
+    // Android instrumented tests
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Debug implementations
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
