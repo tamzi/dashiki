@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.tamzi.mboga.buildlogic"
+group = "com.tamzi.dashiki.buildlogic"
 
 // Configure the build-logic plugins to target JDK 17
 // This matches the JDK used to build the project, and is not related to what is running on device.
@@ -41,47 +41,47 @@ tasks {
 gradlePlugin {
     plugins {
         register("androidApplicationCompose") {
-            id = "mboga.android.application.compose"
+            id = "dashiki.android.application.compose"
             implementationClass = "application.AndroidApplicationComposeConventionPlugin"
         }
         register("androidApplication") {
-            id = "mboga.android.application"
+            id = "dashiki.android.application"
             implementationClass = "application.AndroidApplicationConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = "mboga.android.library.compose"
+            id = "dashiki.android.library.compose"
             implementationClass = "library.AndroidLibraryComposeConventionPlugin"
         }
         register("androidLibrary") {
-            id = "mboga.android.library"
+            id = "dashiki.android.library"
             implementationClass = "library.AndroidLibraryConventionPlugin"
         }
         register("androidFeature") {
-            id = "mboga.android.feature"
+            id = "dashiki.android.feature"
             implementationClass = "feature.AndroidFeatureConventionPlugin"
         }
         register("androidTest") {
-            id = "mboga.android.test"
+            id = "dashiki.android.test"
             implementationClass = "test.AndroidTestConventionPlugin"
         }
         register("hilt") {
-            id = "mboga.hilt"
+            id = "dashiki.hilt"
             implementationClass = "hilt.HiltConventionPlugin"
         }
         register("androidRoom") {
-            id = "mboga.android.room"
+            id = "dashiki.android.room"
             implementationClass = "android.AndroidRoomConventionPlugin"
         }
         register("androidFirebase") {
-            id = "mboga.android.application.firebase"
+            id = "dashiki.android.application.firebase"
             implementationClass = "application.AndroidApplicationFirebaseConventionPlugin"
         }
         register("androidLint") {
-            id = "mboga.android.lint"
+            id = "dashiki.android.lint"
             implementationClass = "android.AndroidLintConventionPlugin"
         }
         register("jvmLibrary") {
-            id = "mboga.jvm.library"
+            id = "dashiki.jvm.library"
             implementationClass = "jvm.JvmLibraryConventionPlugin"
         }
     }
