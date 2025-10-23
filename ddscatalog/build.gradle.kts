@@ -31,6 +31,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -41,13 +47,10 @@ dependencies {
 
     implementation(project(":dds"))
 
-    //Koin
-    implementation(libs.koin.androidx.compose)
+    testImplementation(libs.junit5)
+    testRuntimeOnly(libs.junit5.engine)
+    testImplementation(libs.junit5.params)
 
-    //Test
-    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
-
-    //Koin for Tests
-    testImplementation(libs.koin.test.junit4)
 }

@@ -1,8 +1,7 @@
 package com.tamzi.ddscatalog
 
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
