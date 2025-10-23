@@ -2,6 +2,7 @@ package application
 
 import com.android.build.api.dsl.ApplicationExtension
 import util.configureKotlinAndroid
+import util.BuildLogicConstants
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -75,14 +76,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
-                apply("com.dropbox.dependency-guard")
                 apply("dashiki.android.lint")
             }
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 35
-                defaultConfig.minSdk = 28
+                defaultConfig.targetSdk = BuildLogicConstants.TARGET_SDK
+                defaultConfig.minSdk = BuildLogicConstants.MIN_SDK
                 @Suppress("UnstableApiUsage")
                 testOptions.animationsDisabled = true
             }
