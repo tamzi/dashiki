@@ -1,20 +1,16 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.dashiki.android.application)
+    alias(libs.plugins.dashiki.android.application.compose)
 }
 
 android {
     namespace = "com.tamzi.ddscatalog"
-    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.tamzi.ddscatalog"
-        minSdk = 33
-        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -29,20 +25,8 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.8"
-    }
-    packaging{
+
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -50,21 +34,20 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.material3:material3:1.1.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.ui.tooling.preview)
 
     implementation(project(":dds"))
 
     //Koin
-    implementation("io.insert-koin:koin-androidx-compose:3.4.5")
+    implementation(libs.koin.androidx.compose)
 
     //Test
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:4.13.2")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
 
     //Koin for Tests
-    testImplementation("io.insert-koin:koin-test-junit4:3.4.5")
-
+    testImplementation(libs.koin.test.junit4)
 }
