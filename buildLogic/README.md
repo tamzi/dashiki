@@ -30,12 +30,12 @@ setup.
 Current list of convention plugins:
 
 - [
-  `mboga.android.application`](convention/src/main/kotlin/application/AndroidApplicationConventionPlugin.kt),
-  [`mboga.android.library`](convention/src/main/kotlin/library/AndroidLibraryConventionPlugin.kt),
-  [`mboga.android.test`](convention/src/main/kotlin/test/AndroidTestConventionPlugin.kt):
+  `dashiki.android.application`](convention/src/main/kotlin/application/AndroidApplicationConventionPlugin.kt),
+  [`dashiki.android.library`](convention/src/main/kotlin/library/AndroidLibraryConventionPlugin.kt),
+  [`dashiki.android.test`](convention/src/main/kotlin/test/AndroidTestConventionPlugin.kt):
   Configures common Android and Kotlin options.
 - [
-  `mboga.android.application.compose`](convention/src/main/kotlin/application/AndroidApplicationComposeConventionPlugin.kt),
+  `dashiki.android.application.compose`](convention/src/main/kotlin/application/AndroidApplicationComposeConventionPlugin.kt),
   [
-  `mboga.android.library.compose`](convention/src/main/kotlin/library/AndroidLibraryComposeConventionPlugin.kt):
+  `dashiki.android.library.compose`](convention/src/main/kotlin/library/AndroidLibraryComposeConventionPlugin.kt):
   Configures Jetpack Compose options
