@@ -11,7 +11,6 @@ android {
         versionCode = 1
         versionName = "0.1"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -33,6 +32,7 @@ android {
         }
     }
 
+    // JUnit 5 configuration
     testOptions {
         unitTests.all {
             it.useJUnitPlatform()
@@ -44,14 +44,15 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.ui.tooling.preview)
 
     implementation(project(":dds"))
 
+    // JUnit 5 for unit tests
     testImplementation(libs.junit5)
     testRuntimeOnly(libs.junit5.engine)
     testImplementation(libs.junit5.params)
 
+    // Android instrumented tests
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
 }
