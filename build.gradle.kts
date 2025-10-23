@@ -9,5 +9,6 @@ plugins {
     id ("org.jetbrains.kotlin.android") version ("1.8.21") apply false
     id("org.jetbrains.kotlin.jvm") version "1.8.21" apply false
     id("com.google.devtools.ksp") version "1.8.21-1.0.11" apply false
-    id("com.android.test") version "8.7.1" apply false
+    id("com.google.dagger.hilt.android") version "2.48" apply false
+    id("com.android.test") version "8.13.0" apply false
 }
