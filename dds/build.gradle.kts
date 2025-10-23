@@ -1,16 +1,12 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.dashiki.android.library)
+    alias(libs.plugins.dashiki.android.library.compose)
 }
 
 android {
     namespace = "com.tamzi.dds"
-    compileSdk = 36
 
     defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -22,21 +18,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
     }
 
     testOptions {
@@ -68,7 +49,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
 
     // Compose Animation
-    implementation("androidx.compose.animation:animation")
+    implementation(libs.androidx.compose.animation)
 
     // JUnit 5 for unit tests
     testImplementation(libs.junit5)
