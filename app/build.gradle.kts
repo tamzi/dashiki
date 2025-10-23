@@ -39,7 +39,10 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.material.icons.extended) // Material Icons Extended
     implementation(libs.material) // Material Components for themes
+    // ConstraintLayout for Compose
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     implementation(project(":dds"))
 
