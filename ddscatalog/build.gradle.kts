@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.dashiki.android.application)
     alias(libs.plugins.dashiki.android.application.compose)
+    alias(libs.plugins.dashiki.android.application.printing)
 }
 
 android {

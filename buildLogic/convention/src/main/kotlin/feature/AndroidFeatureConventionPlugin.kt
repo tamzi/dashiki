@@ -36,7 +36,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
             dependencies {
                 // TODO: Add core module dependencies when core modules are created
-                // add("implementation", project(":core:ui"))
+                 add("implementation", project(":dds"))
                 // add("implementation", project(":core:domain"))
 
                 // Common feature dependencies

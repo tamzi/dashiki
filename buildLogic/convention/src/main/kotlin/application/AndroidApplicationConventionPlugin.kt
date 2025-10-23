@@ -85,7 +85,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 configureJUnit5(this) // Add JUnit 5 configuration
                 defaultConfig.targetSdk = BuildLogicConstants.TARGET_SDK
                 defaultConfig.minSdk = BuildLogicConstants.MIN_SDK
-                @Suppress("UnstableApiUsage")
                 testOptions.animationsDisabled = true
             }
         }

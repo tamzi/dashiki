@@ -84,7 +84,13 @@ gradlePlugin {
             id = "dashiki.jvm.library"
             implementationClass = "jvm.JvmLibraryConventionPlugin"
         }
+        register("androidApplicationFlavors") {
+            id = "dashiki.android.application.flavors"
+            implementationClass = "flavor.AndroidApplicationFlavorsConventionPlugin"
+        }
+        register("androidApplicationPrinting") {
+            id = "dashiki.android.application.printing"
+            implementationClass = "printing.AndroidApplicationPrintingConventionPlugin"
+        }
     }
 }
-
-
