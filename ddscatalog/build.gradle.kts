@@ -39,8 +39,14 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
 
+    // Use BOM-managed version (no explicit version) to avoid conflicts
+    implementation(libs.androidx.compose.material.iconsExtended)
+
+    // Add ConstraintLayout for Compose
+    implementation(libs.androidx.constraintlayout.compose)
+
     implementation(project(":dds"))
 
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidxComposeUiTest)
 }

@@ -1,4 +1,4 @@
-package com.tamzi.dashiki.ui.components
+package com.tamzi.ddscatalog.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text

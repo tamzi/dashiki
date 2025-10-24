@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.material.icons.extended) // Material Icons Extended
+    implementation(libs.androidx.compose.material.iconsExtended) // Material Icons Extended (BOM-managed)
     implementation(libs.material) // Material Components for themes
     // ConstraintLayout for Compose
     implementation(libs.androidx.constraintlayout.compose)
@@ -48,5 +48,5 @@ dependencies {
 
     // Android instrumented tests
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidxComposeUiTest)
 }

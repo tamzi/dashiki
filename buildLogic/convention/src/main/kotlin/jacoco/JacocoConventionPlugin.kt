@@ -8,6 +8,7 @@ import org.gradle.kotlin.dsl.withType
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
+import util.libs
 import kotlin.text.toBigDecimal
 
 /**
@@ -28,7 +29,7 @@ class JacocoConventionPlugin : Plugin<Project> {
 
             // Configure JaCoCo extension
             configure<JacocoPluginExtension> {
-                toolVersion = "0.8.7"
+                toolVersion = libs.findVersion("jacoco").get().toString()
             }
 
             // Configure test tasks to generate coverage

@@ -40,7 +40,6 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun DashikiTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -57,15 +56,14 @@ fun DashikiTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            // Suppress deprecation - this is the correct API for Android R+
-            @Suppress("DEPRECATION")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.setDecorFitsSystemWindows(false)
-            }
-            // Suppress deprecation - statusBarColor is deprecated but still needed for compatibility
-            @Suppress("DEPRECATION")
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+
+            // Enable edge-to-edge display - modern approach for Android 15+
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+
+            // Configure status bar appearance (light or dark icons/text)
+            val insetsController = WindowCompat.getInsetsController(window, view)
+            insetsController.isAppearanceLightStatusBars = !darkTheme
+            insetsController.isAppearanceLightNavigationBars = !darkTheme
         }
     }
 
