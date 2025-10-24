@@ -21,8 +21,13 @@ Base configuration for Android application modules.
 - Android application plugin
 - Kotlin Android support
 - SDK versions (compile, min, target)
-- JUnit 5 configuration
 - Lint configuration
+- Core library desugaring
+
+**Dependencies Included:**
+
+- `androidx.core:core-ktx` - Core Android KTX extensions
+- `com.google.android.material:material` - Material Components for themes
 
 **Usage:**
 
@@ -41,6 +46,16 @@ Jetpack Compose configuration for applications.
 - Compose compiler plugin
 - Compose BOM
 - Compose UI tooling dependencies
+
+**Dependencies Included:**
+
+- `androidx.compose:compose-bom` - Compose Bill of Materials (platform)
+- `androidx.activity:activity-compose` - Activity Compose integration
+- `androidx.compose.material3:material3` - Material 3 components
+- `androidx.compose.ui:ui-tooling-preview` - Compose preview support
+- `androidx.compose.ui:ui-tooling` (debug) - Compose debugging tools
+- `androidx.compose.material:material-icons-extended` - Extended Material icons
+- `androidx.constraintlayout:constraintlayout-compose` - ConstraintLayout for Compose
 
 **Usage:**
 
@@ -166,7 +181,17 @@ Jetpack Compose configuration for libraries.
 **Provides:**
 
 - Compose support for libraries
-- Compose dependencies
+- Compose dependencies (same as application.compose)
+
+**Dependencies Included:**
+
+- `androidx.compose:compose-bom` - Compose Bill of Materials (platform)
+- `androidx.activity:activity-compose` - Activity Compose integration
+- `androidx.compose.material3:material3` - Material 3 components
+- `androidx.compose.ui:ui-tooling-preview` - Compose preview support
+- `androidx.compose.ui:ui-tooling` (debug) - Compose debugging tools
+- `androidx.compose.material:material-icons-extended` - Extended Material icons
+- `androidx.constraintlayout:constraintlayout-compose` - ConstraintLayout for Compose
 
 **Usage:**
 
@@ -255,6 +280,166 @@ plugins {
 }
 ```
 
+### Testing Conventions
+
+Testing conventions are separated by test type and purpose. Apply only the testing conventions
+you need for your module.
+
+#### `dashiki.android.unit.test`
+
+**Purpose:** JVM-based unit tests (test source set)
+
+**Test Types:**
+
+- Business logic tests
+- ViewModel tests
+- Use case/repository tests
+- Pure function tests
+- Coroutine/Flow tests
+
+**Dependencies Included:**
+
+- `kotlinx-coroutines-test` - Testing utilities for coroutines and flows
+- `truth` - Fluent assertions library
+- `turbine` - Flow testing library
+- `robolectric` - Android framework testing on JVM
+
+**When to use:**
+Apply to modules that test logic without requiring a device/emulator.
+These tests run on the local JVM and are fast.
+
+**Usage:**
+
+```kotlin
+plugins {
+    alias(libs.plugins.dashiki.android.unit.test)
+}
+```
+
+**Example test:**
+
+```kotlin
+@Test
+fun `viewModel emits correct state`() = runTest {
+    val viewModel = MyViewModel()
+    viewModel.state.test {
+        assertThat(awaitItem()).isEqualTo(Loading)
+        assertThat(awaitItem()).isEqualTo(Success(data))
+    }
+}
+```
+
+#### `dashiki.android.instrumented.test`
+
+**Purpose:** Device/emulator-based instrumented tests (androidTest source set)
+
+**Test Types:**
+
+- Integration tests
+- E2E tests
+- UI interaction tests (non-Compose)
+- System behavior tests
+
+**Dependencies Included:**
+
+- `androidx.test.ext:junit` - JUnit test extensions
+- `androidx.test:core` - Core testing framework
+- `androidx.test:runner` - Test runner
+- `androidx.test:rules` - Test rules
+- `androidx.test.espresso:espresso-core` - UI testing framework
+
+**When to use:**
+Apply to modules that test Android-specific behavior, system interactions,
+or UI components that require a device/emulator.
+
+**Usage:**
+
+```kotlin
+plugins {
+    alias(libs.plugins.dashiki.android.instrumented.test)
+}
+```
+
+**Example test:**
+
+```kotlin
+@Test
+fun testButtonClick() {
+    onView(withId(R.id.button))
+        .perform(click())
+    onView(withId(R.id.text))
+        .check(matches(withText("Clicked")))
+}
+```
+
+#### `dashiki.android.compose.instrumented.test`
+
+**Purpose:** Compose UI instrumented tests (androidTest source set)
+
+**Test Types:**
+
+- Compose UI tests
+- @Composable function tests
+- Compose state tests
+- Compose navigation tests
+- Semantics tree tests
+
+**Dependencies Included:**
+
+- `androidx.compose.ui:ui-test-junit4` - Compose UI testing framework
+- `androidx.compose.ui:ui-test-manifest` (debug) - Test manifest for debugging
+
+**Requires:**
+
+- Must be used with a Compose-enabled module
+- Usually combined with `dashiki.android.instrumented.test` for complete setup
+
+**When to use:**
+Apply to modules that test Jetpack Compose UI components.
+Use with `dashiki.android.instrumented.test` for full test infrastructure.
+
+**Usage:**
+
+```kotlin
+plugins {
+    alias(libs.plugins.dashiki.android.instrumented.test)
+    alias(libs.plugins.dashiki.android.compose.instrumented.test)
+}
+```
+
+**Example test:**
+
+```kotlin
+@Test
+fun testComposeButton() {
+    composeTestRule.setContent {
+        MyButton(onClick = { /* ... */ })
+    }
+    composeTestRule
+        .onNodeWithText("Click Me")
+        .performClick()
+    composeTestRule
+        .onNodeWithText("Clicked!")
+        .assertIsDisplayed()
+}
+```
+
+#### `dashiki.android.test`
+
+**Purpose:** Legacy test module configuration
+
+**Note:** This is the legacy convention for dedicated Android test modules (`:app:androidTest`).
+For most cases, use the specific testing conventions above instead.
+
+**Usage:**
+Only use for separate test-only modules, not for regular modules with tests.
+
+```kotlin
+plugins {
+    alias(libs.plugins.dashiki.android.test)
+}
+```
+
 ## Common Patterns
 
 ### New Application Module
@@ -265,6 +450,11 @@ plugins {
     alias(libs.plugins.dashiki.android.application.compose)
     alias(libs.plugins.dashiki.android.application.flavors)  // Optional
     alias(libs.plugins.dashiki.android.application.printing) // Optional
+    
+    // Testing (only if this module has tests)
+    alias(libs.plugins.dashiki.android.unit.test)              // For unit tests
+    alias(libs.plugins.dashiki.android.instrumented.test)      // For UI/E2E tests
+    alias(libs.plugins.dashiki.android.compose.instrumented.test) // For Compose UI tests
 }
 
 android {
@@ -279,6 +469,7 @@ android {
 
 dependencies {
     // Module-specific dependencies only
+    // Common dependencies are provided by conventions
 }
 ```
 
@@ -288,6 +479,9 @@ dependencies {
 plugins {
     alias(libs.plugins.dashiki.android.library)
     alias(libs.plugins.dashiki.android.library.compose) // If using Compose
+    
+    // Testing (only if this module has tests)
+    alias(libs.plugins.dashiki.android.unit.test)        // For unit tests
 }
 
 android {
@@ -304,6 +498,11 @@ dependencies {
 ```kotlin
 plugins {
     alias(libs.plugins.dashiki.android.feature)
+    
+    // Testing conventions (feature modules typically have both unit and UI tests)
+    alias(libs.plugins.dashiki.android.unit.test)
+    alias(libs.plugins.dashiki.android.instrumented.test)
+    alias(libs.plugins.dashiki.android.compose.instrumented.test)
 }
 
 android {
@@ -316,10 +515,47 @@ dependencies {
 }
 ```
 
+### Module with Only Unit Tests
+
+```kotlin
+plugins {
+    alias(libs.plugins.dashiki.android.library)
+    alias(libs.plugins.dashiki.android.unit.test)  // Only unit testing
+}
+
+android {
+    namespace = "com.tamzi.dashiki.domain"
+}
+
+dependencies {
+    // Domain logic dependencies
+}
+```
+
+### Module with Only Compose UI Tests
+
+```kotlin
+plugins {
+    alias(libs.plugins.dashiki.android.library)
+    alias(libs.plugins.dashiki.android.library.compose)
+    alias(libs.plugins.dashiki.android.instrumented.test)
+    alias(libs.plugins.dashiki.android.compose.instrumented.test)
+}
+
+android {
+    namespace = "com.tamzi.dashiki.ui.components"
+}
+
+dependencies {
+    // UI component dependencies
+}
+```
+
 ## What Conventions Provide
 
 You **don't need** to configure in your module build files:
 
+### Configuration
 - ✅ `compileSdk`, `minSdk`, `targetSdk`
 - ✅ JUnit 5 configuration and dependencies
 - ✅ Compose BOM and common Compose dependencies
@@ -327,6 +563,56 @@ You **don't need** to configure in your module build files:
 - ✅ Core library desugaring
 - ✅ Kotlin compiler options
 - ✅ Lint configuration
+
+### Common Dependencies (Automatically Included)
+
+**Base Android (application & library):**
+
+- ✅ `androidx.core:core-ktx`
+
+**Android Application:**
+
+- ✅ `com.google.android.material:material`
+
+**Compose (application & library):**
+
+- ✅ `androidx.compose:compose-bom` (platform)
+- ✅ `androidx.activity:activity-compose`
+- ✅ `androidx.compose.material3:material3`
+- ✅ `androidx.compose.ui:ui-tooling-preview`
+- ✅ `androidx.compose.ui:ui-tooling` (debug)
+- ✅ `androidx.compose.material:material-icons-extended`
+- ✅ `androidx.constraintlayout:constraintlayout-compose`
+
+**Unit Testing (`dashiki.android.unit.test`):**
+
+- ✅ `kotlinx-coroutines-test`
+- ✅ `truth` (assertions)
+- ✅ `turbine` (Flow testing)
+- ✅ `robolectric`
+
+**Instrumented Testing (`dashiki.android.instrumented.test`):**
+
+- ✅ `androidx.test.ext:junit`
+- ✅ `androidx.test:core`
+- ✅ `androidx.test:runner`
+- ✅ `androidx.test:rules`
+- ✅ `androidx.test.espresso:espresso-core`
+
+**Compose Instrumented Testing (`dashiki.android.compose.instrumented.test`):**
+
+- ✅ `androidx.compose.ui:ui-test-junit4`
+- ✅ `androidx.compose.ui:ui-test-manifest` (debug)
+
+**Note:** Only add dependencies to your module's `build.gradle.kts` if they are:
+
+1. Module-specific (not used across all modules)
+2. Optional features (not required by all modules)
+3. API dependencies that need to be exposed to consumers (use `api()` instead of `implementation()`)
+
+**Testing Note:** Testing dependencies are opt-in. Apply the specific testing convention plugins
+(`dashiki.android.unit.test`, `dashiki.android.instrumented.test`, etc.) only to modules that need
+them.
 
 ## Build Logic Constants
 
@@ -349,3 +635,4 @@ All SDK versions are centralized in `BuildLogicConstants`:
 
 - [Now in Android Build Logic](https://github.com/android/nowinandroid/tree/main/build-logic)
 - [Gradle Convention Plugins](https://docs.gradle.org/current/samples/sample_convention_plugins.html)
+
