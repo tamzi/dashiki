@@ -45,7 +45,7 @@ fun DashikiTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        dynamicColor && true -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
@@ -57,6 +57,10 @@ fun DashikiTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
+            // Use modern API for status bar color (Android 11+)
+            window.setDecorFitsSystemWindows(false)
+            // For older versions, use the deprecated API
+            @Suppress("DEPRECATION")
             window.statusBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
