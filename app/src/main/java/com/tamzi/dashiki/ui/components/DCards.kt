@@ -30,10 +30,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.tamzi.dashiki.ui.theme.Shapes
-import com.tamzi.dashiki.ui.theme.black
-import com.tamzi.dashiki.ui.theme.limeGreenish
-import com.tamzi.dashiki.ui.theme.white
+import com.tamzi.dds.utils.Shapes
+import com.tamzi.dds.atoms.color.black
+import com.tamzi.dds.atoms.color.limeGreenish
+import com.tamzi.dds.atoms.color.white
 
 @Composable
 fun DProductCard(product: Product) {

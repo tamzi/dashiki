@@ -21,17 +21,16 @@ import com.tamzi.dds.R
  * Defines the font family types
  */
 
-val MontserratRegular = FontFamily(Font(R.font.montserrat_regular))
-val MontserratBold = FontFamily(Font(R.font.montserrat_bold))
-val MontserratSemiBold = FontFamily(Font(R.font.montserrat_semi_bold))
-val MontserratLight = FontFamily(Font(R.font.montserrat_light))
-val MontserratMedium = FontFamily(Font(R.font.montserrat_medium))
+public val MontserratRegular = FontFamily(Font(R.font.montserrat_regular))
+public val MontserratBold = FontFamily(Font(R.font.montserrat_bold))
+public val MontserratSemiBold = FontFamily(Font(R.font.montserrat_semi_bold))
+public val MontserratLight = FontFamily(Font(R.font.montserrat_light))
+public val MontserratMedium = FontFamily(Font(R.font.montserrat_medium))
 
-val MontserratExtraLight = FontFamily(Font(R.font.montserrat_extra_light))
+public val MontserratExtraLight = FontFamily(Font(R.font.montserrat_extra_light))
 
-val MontserratThin = FontFamily(Font(R.font.montserrat_thin))
+public val MontserratThin = FontFamily(Font(R.font.montserrat_thin))
 
 
-val GraphikFont = FontFamily(Font(R.font.graphik_light, FontWeight.Light))
-val SantanaFont = FontFamily(Font(R.font.santana_black, FontWeight.Normal))
-
+public val GraphikFont = FontFamily(Font(R.font.graphik_light, FontWeight.Light))
+public val SantanaFont = FontFamily(Font(R.font.santana_black, FontWeight.Normal))

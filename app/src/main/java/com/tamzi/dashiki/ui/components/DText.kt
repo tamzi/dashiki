@@ -1,14 +1,15 @@
 package com.tamzi.dashiki.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.tamzi.dashiki.ui.theme.*
-
+import com.tamzi.dds.atoms.color.black
+import com.tamzi.dds.atoms.type.GraphikFont
+import com.tamzi.dds.atoms.type.SantanaFont
 
 @Composable
 fun PageTitle(pageTitle: String) {

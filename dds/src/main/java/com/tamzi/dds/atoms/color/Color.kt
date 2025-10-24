@@ -137,37 +137,47 @@ i will not delve into that here. :)
 **/
 
 
-val dashikiWhite = Color(0xFFFFFFFF)
-val dashikiBlack = Color(0xFF131313)
+public val dashikiWhite = Color(0xFFFFFFFF)
+public val dashikiBlack = Color(0xFF131313)
 
 /*Coffee  Inspired*/
-val dashikiBrown = Color(0xFFB78358)
-val dashikiDeepBrown = Color(0xFF541F08)
-val dashikiLightBrown = Color(0xFFAF620E)
-val dashikiSmoke = Color(0xFFD6B59C)
-val dashikiCream = Color(0xFFDDAA78)
+public val dashikiBrown = Color(0xFFB78358)
+public val dashikiDeepBrown = Color(0xFF541F08)
+public val dashikiLightBrown = Color(0xFFAF620E)
+public val dashikiSmoke = Color(0xFFD6B59C)
+public val dashikiCream = Color(0xFFDDAA78)
 
 
-val dashikiLightGray = Color(0xFFF6F6F6)
-val dashikiGray = Color(0xFFEFEFEF)
-val dashikiDeepGray = Color(0xFFE6E4E6)
-val dashikiDarkGray = Color( 0xFF83829A)
-val dashikiDarkGrey = Color(0xFF353439)
+public val dashikiLightGray = Color(0xFFF6F6F6)
+public val dashikiGray = Color(0xFFEFEFEF)
+public val dashikiDeepGray = Color(0xFFE6E4E6)
+public val dashikiDarkGray = Color(0xFF83829A)
+public val dashikiDarkGrey = Color(0xFF353439)
 
-val dashikiRed = Color(0xFFFF5000)
-val dashikiReddish = Color(0xFFFF4343)
-val dashikiWarmRed = Color(0xFFFF7754)
+public val dashikiRed = Color(0xFFFF5000)
+public val dashikiReddish = Color(0xFFFF4343)
+public val dashikiWarmRed = Color(0xFFFF7754)
 
-val dashikiAmber = Color(0xFFffbd4a)
+public val dashikiAmber = Color(0xFFffbd4a)
 
-val dashikiGreen = Color(0xFF006643)
-val dashikiLime = Color(0xFF55B03E)
-val dashikiLimeGreenish = Color(0xFF4ABB00)
-val dashikiTeal= Color(0xFF0d9668)
-val dashikiPaleGreen = Color(0xFF91b5a3)
+public val dashikiGreen = Color(0xFF006643)
+public val dashikiLime = Color(0xFF55B03E)
+public val dashikiLimeGreenish = Color(0xFF4ABB00)
+public val dashikiTeal = Color(0xFF0d9668)
+public val dashikiPaleGreen = Color(0xFF91b5a3)
 
-val dashikiPurple = Color(0xFF5944BE)
-val dashikiDarkBluish = Color(0xFF312651)
-val dashikiLightPurple = Color(0xFF7777CC)
+public val dashikiPurple = Color(0xFF5944BE)
+public val dashikiDarkBluish = Color(0xFF312651)
+public val dashikiLightPurple = Color(0xFF7777CC)
 
-val dashikiBlue = Color(0x0000FF)
+public val dashikiBlue = Color(0x0000FF)
+
+// Common aliases for easier usage
+public val white = dashikiWhite
+public val black = dashikiBlack
+public val gray = dashikiGray
+public val limeGreenish = dashikiLimeGreenish
+public val medium = dashikiGray // Alias for medium gray
+
+// Alias for typo in existing code (dashikWhite instead of dashikiWhite)
+public val dashikWhite = dashikiWhite
