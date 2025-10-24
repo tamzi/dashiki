@@ -35,7 +35,7 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginE
  *        }
  *       }
  *
- * Finally, the function configures the ComposeCompilerGradlePluginExtension, which provides additional options for the Compose compiler. It sets up properties for enabling compiler metrics and reports based on Gradle properties, and specifies the stabilityConfigurationFile and enableStrongSkippingMode options:
+ * Finally, the function configures the ComposeCompilerGradlePluginExtension, which provides additional options for the Compose compiler. It sets up properties for enabling compiler metrics and reports based on Gradle properties, and specifies the stabilityConfigurationFiles and enableStrongSkippingMode options:
  *
  *      extensions.configure<ComposeCompilerGradlePluginExtension> {
  *          fun Provider<String>.onlyIfTrue() = flatMap { provider { it.takeIf(String::toBoolean) } }
@@ -52,10 +52,9 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginE
  *         .let(reportsDestination::set)
  *      }
  *
- * Finally, it sets the stability configuration file and enables strong skipping mode for the Compose compiler:
+ * Finally, it sets the stability configuration files and enables strong skipping mode for the Compose compiler:
  *
- *      stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
- *      enableStrongSkippingMode = true
+ *      stabilityConfigurationFiles.add(rootProject.layout.projectDirectory.file("compose_compiler_config.conf"))
  *
  */
 internal fun Project.configureAndroidCompose(commonExtension: CommonExtension<*, *, *, *, *, *>) {
@@ -100,6 +99,9 @@ internal fun Project.configureAndroidCompose(commonExtension: CommonExtension<*,
             .relativeToRootProject("compose-reports")
             .let(reportsDestination::set)
 
-        stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+        // Use the new plural property instead of the deprecated singular one
+        stabilityConfigurationFiles.add(
+            rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+        )
     }
 }
