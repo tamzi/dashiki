@@ -4,6 +4,61 @@ import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import org.gradle.api.Project
 
 /**
+ * Utility for disabling unnecessary Android instrumented tests
+ *
+ * **IMPORTANT: This is a UTILITY, not a convention plugin.**
+ *
+ * **What this does:**
+ * - Disables androidTest compilation for library modules that don't have src/androidTest folder
+ * - Prevents waste of build time compiling, packaging, and installing empty test APKs
+ * - Should be called from library convention plugins
+ *
+ * **What this is NOT:**
+ * - This is NOT a dependency provider (see AndroidInstrumentedTestConventionPlugin for that)
+ * - This is NOT a plugin that modules apply directly
+ * - This does NOT add testing dependencies
+ *
+ * **Relationship to AndroidInstrumentedTestConventionPlugin:**
+ * ```
+ * AndroidInstrumentedTests.kt (THIS FILE):
+ *   └─> Utility function to optimize builds
+ *   └─> Called BY convention plugins
+ *   └─> Disables empty test builds
+ *
+ * AndroidInstrumentedTestConventionPlugin.kt:
+ *   └─> Convention plugin applied BY modules
+ *   └─> Provides testing dependencies
+ *   └─> Adds androidx.test, Espresso, etc.
+ * ```
+ *
+ * **Usage:**
+ * Called from library conventions like this:
+ * ```kotlin
+ * class AndroidLibraryConventionPlugin : Plugin<Project> {
+ *     override fun apply(target: Project) {
+ *         with(target) {
+ *             // ... other configuration ...
+ *
+ *             // Use this utility to optimize builds
+ *             extensions.configure<LibraryAndroidComponentsExtension> {
+ *                 disableUnnecessaryAndroidTests(project)
+ *             }
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * **Why separate these concerns:**
+ * - Build optimization (this file) vs dependency management (convention plugin)
+ * - This runs for ALL library modules automatically
+ * - Test dependencies are opt-in via the convention plugin
+ *
+ * **Example scenario:**
+ * - Library module `core:utils` has no src/androidTest folder
+ * - This utility detects that and skips androidTest build
+ * - Saves ~5-10 seconds per clean build
+ * - If later you add tests, it automatically re-enables
+ *
  * Disable unnecessary Android instrumented tests for the [project] if there is no `androidTest` folder.
  * Otherwise, these projects would be compiled, packaged, installed and ran only
  * to end-up with the following message:
@@ -11,51 +66,7 @@ import org.gradle.api.Project
  * > Starting 0 tests on AVD
  *
  * Note: this could be improved by checking other potential sourceSets based on buildTypes and flavors.
- *
- *
- * The disableUnnecessaryAndroidTests function is an internal extension function for
- * the LibraryAndroidComponentsExtension class in Gradle. It is designed to disable
- * unnecessary Android instrumented tests for a given project if there is no androidTest folder present.
- * The function takes a Project parameter and uses the beforeVariants method to configure the
- * variants before they are built. Inside the beforeVariants block, it checks if
- * the androidTest folder exists in the project's directory.
- * This is done using the project.projectDir.resolve("src/androidTest").exists() expression.
- *
- * `project.projectDir.resolve("src/androidTest").exists()`
- * The above expression resolves the
- * path to the androidTest folder in the project directory and checks if it exists.
- *
- * If the androidTest folder does not exist, the enableAndroidTest property of
- * the variant is set to false, effectively disabling the Android instrumented tests for that variant.
- * If the folder exists, the enableAndroidTest property remains unchanged.
- *
- * `it.enableAndroidTest = it.enableAndroidTest && project.projectDir.resolve("src/androidTest").exists()`
- *
- * The above line of code sets the enableAndroidTest property of the variant to false if the
- * androidTest folder does not exist in the project directory.
- *
- * This approach ensures that unnecessary Android instrumented tests are not compiled,
- * packaged, installed, and run, which would otherwise result in a message indicating that
- * no tests were started on the Android Virtual Device (AVD).
- *
- * @param project : The project for which unnecessary Android instrumented tests should be disabled.
- *
- *
- * `LibraryAndroidComponentsExtension` :  The LibraryAndroidComponentsExtension class is a Gradle extension
- * that allows configuration of Android components for library projects.
- *
- * `beforeVariants`  The beforeVariants method is used to configure the variants before they are built.
- *
- * `exists` : The exists method checks if a file or directory exists at the specified path.
- *
- * `enableAndroidTest` : The enableAndroidTest property is used to enable or disable Android instrumented tests for a variant.
- *
- * `projectDir` :  The projectDir property provides the directory path of the project.
- *
- * `resolve The resolve method resolves the path to a file or directory based on the specified path.
- *
  */
-
 internal fun LibraryAndroidComponentsExtension.disableUnnecessaryAndroidTests(
     project: Project,
 ) = beforeVariants {
