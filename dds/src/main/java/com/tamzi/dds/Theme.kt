@@ -64,6 +64,8 @@ fun DashikiTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
+            // Suppress deprecation - statusBarColor is deprecated but still widely used for compatibility
+            @Suppress("DEPRECATION")
             window.statusBarColor = colorPallete.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }

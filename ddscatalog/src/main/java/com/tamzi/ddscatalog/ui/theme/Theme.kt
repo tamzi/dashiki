@@ -57,9 +57,12 @@ fun DashikiTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            // Use modern API for status bar color (Android 11+)
-            window.setDecorFitsSystemWindows(false)
-            // For older versions, use the deprecated API
+            // Suppress deprecation - this is the correct API for Android R+
+            @Suppress("DEPRECATION")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.setDecorFitsSystemWindows(false)
+            }
+            // Suppress deprecation - statusBarColor is deprecated but still needed for compatibility
             @Suppress("DEPRECATION")
             window.statusBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
