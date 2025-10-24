@@ -1,8 +1,14 @@
+import org.jetbrains.kotlin.gradle.internal.builtins.StandardNames.FqNames.unit
+
 plugins {
     alias(libs.plugins.dashiki.android.application)
     alias(libs.plugins.dashiki.android.application.compose)
     alias(libs.plugins.dashiki.android.application.flavors)
     alias(libs.plugins.dashiki.android.application.printing)
+    // Testing conventions (apply only if module has tests)
+    id("dashiki.android.unit.test")
+    id("dashiki.android.instrumented.test")
+    id("dashiki.android.compose.instrumented.test")
 }
 
 android {
@@ -36,17 +42,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.iconsExtended) // Material Icons Extended (BOM-managed)
-    implementation(libs.material) // Material Components for themes
-    // ConstraintLayout for Compose
-    implementation(libs.androidx.constraintlayout.compose)
-
     implementation(project(":dds"))
-
-    // Android instrumented tests
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidxComposeUiTest)
 }

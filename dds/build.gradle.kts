@@ -22,10 +22,12 @@ android {
 }
 
 dependencies {
+    // Core Android dependencies exposed to consumers
     api(libs.androidx.core.ktx)
     api(libs.androidx.activity.compose)
     api(libs.androidx.lifecycle.runtime.ktx)
 
+    // Compose UI dependencies exposed to consumers
     api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.foundation.layout)
     api(libs.androidx.compose.material)
