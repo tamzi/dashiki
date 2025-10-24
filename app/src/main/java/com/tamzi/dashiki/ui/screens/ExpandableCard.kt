@@ -1,9 +1,12 @@
+package com.tamzi.dashiki.ui.screens
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import com.tamzi.dashiki.ui.components.ExpandableCard
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 @Preview
 fun ExpandableCardPreview() {
