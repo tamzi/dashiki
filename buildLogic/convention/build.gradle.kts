@@ -64,6 +64,18 @@ gradlePlugin {
             id = "dashiki.android.test"
             implementationClass = "test.AndroidTestConventionPlugin"
         }
+        register("androidUnitTest") {
+            id = "dashiki.android.unit.test"
+            implementationClass = "test.AndroidUnitTestConventionPlugin"
+        }
+        register("androidInstrumentedTest") {
+            id = "dashiki.android.instrumented.test"
+            implementationClass = "test.AndroidInstrumentedTestConventionPlugin"
+        }
+        register("androidComposeInstrumentedTest") {
+            id = "dashiki.android.compose.instrumented.test"
+            implementationClass = "test.AndroidComposeInstrumentedTestConventionPlugin"
+        }
         register("hilt") {
             id = "dashiki.hilt"
             implementationClass = "hilt.HiltConventionPlugin"
@@ -90,7 +102,7 @@ gradlePlugin {
         }
         register("androidApplicationPrinting") {
             id = "dashiki.android.application.printing"
-            implementationClass = "printing.AndroidApplicationPrintingConventionPlugin"
+            implementationClass = "printing.AndroidApplicationDebugToolsConventionPlugin"
         }
     }
 }

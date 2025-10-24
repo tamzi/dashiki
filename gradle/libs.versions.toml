@@ -47,11 +47,11 @@ hiltExt = "1.3.0"
 jacoco = "0.8.7"
 junit5 = "6.0.0"
 junitVersion = "1.3.0"
-kotlin = "2.2.20"
+kotlin = "2.2.21"
 kotlinxCoroutines = "1.10.2"
 kotlinxDatetime = "0.7.1"
 kotlinxSerializationJson = "1.9.0"
-ksp = "2.2.20-2.0.4"
+ksp = "2.3.0"
 ktlint = "13.1.0"
 lifecycleRuntimeKtx = "2.9.4"
 lifecycleViewmodelKtx = "2.9.4"
@@ -72,6 +72,7 @@ timber = "5.0.1"
 truth = "1.4.5"
 turbine = "1.2.1"
 material = "1.13.0"
+leakcanary = "2.14"
 
 [bundles]
 androidxComposeUiTest = ["androidxComposeUiTest", "androidxComposeUiTestManifest"]
@@ -179,6 +180,7 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -224,5 +226,8 @@ dashiki-android-library-compose = { id = "dashiki.android.library.compose", vers
 dashiki-android-lint = { id = "dashiki.android.lint", version = "unspecified" }
 dashiki-android-room = { id = "dashiki.android.room", version = "unspecified" }
 dashiki-android-test = { id = "dashiki.android.test", version = "unspecified" }
+dashiki-android-unit-test = { id = "dashiki.android.unit.test", version = "unspecified" }
+dashiki-android-instrumented-test = { id = "dashiki.android.instrumented.test", version = "unspecified" }
+dashiki-android-compose-instrumented-test = { id = "dashiki.android.compose.instrumented.test", version = "unspecified" }
 dashiki-hilt = { id = "dashiki.hilt", version = "unspecified" }
 dashiki-jvm-library = { id = "dashiki.jvm.library", version = "unspecified" }
