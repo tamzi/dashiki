@@ -90,6 +90,13 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
     dependencies {
         add("coreLibraryDesugaring",
             project.extensions.getByType<VersionCatalogsExtension>().named("libs").findLibrary("android.desugarJdkLibs").get())
+
+        // Core Android KTX dependency (used in virtually all Android modules)
+        add(
+            "implementation",
+            project.extensions.getByType<VersionCatalogsExtension>().named("libs")
+                .findLibrary("androidx.core.ktx").get()
+        )
     }
 }
 
@@ -124,8 +131,6 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
  */
 internal fun Project.configureKotlinJvm() {
     extensions.configure<JavaPluginExtension> {
-        // Up to Java 11 APIs are available through desugaring
-        // https://developer.android.com/studio/write/java11-minimal-support-table
         sourceCompatibility = JavaVersion.toVersion(BuildLogicConstants.JAVA_VERSION)
         targetCompatibility = JavaVersion.toVersion(BuildLogicConstants.JAVA_VERSION)
     }

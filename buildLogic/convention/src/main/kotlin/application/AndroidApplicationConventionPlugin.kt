@@ -4,9 +4,11 @@ import com.android.build.api.dsl.ApplicationExtension
 import util.configureKotlinAndroid
 import util.configureJUnit5
 import util.BuildLogicConstants
+import util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 /**
  *
@@ -86,6 +88,11 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 defaultConfig.targetSdk = BuildLogicConstants.TARGET_SDK
                 defaultConfig.minSdk = BuildLogicConstants.MIN_SDK
                 testOptions.animationsDisabled = true
+            }
+            // Add common application dependencies
+            dependencies {
+                // Material Components for Material Design themes
+                add("implementation", libs.findLibrary("material").get())
             }
         }
     }
